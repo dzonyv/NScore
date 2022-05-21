@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <link rel='stylesheet' type='text/css' href='nscore.css'>
+    <link rel='stylesheet' type='text/css' href='nscore_css.css'>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NScore: Live Football Scores</title>
+    <meta http-equiv="refresh" content="30">
 </head>
 <body>
     <header>
@@ -15,23 +16,26 @@
             <img src="NScore logo.png" class="logo">
             <nav>
               <ul>
-                <li><a href="NScore.html">Football</a></li>
-                <li><a href="Nsocre/Basketball.html">Basketball</a></li>
-                <li><a href="Nscore/Tennis.html">Tennis</a></li>
-                <li><a href="NScore/Favorites.html">Favorites</a></li>
+                <li><a href="NScore.html">LiveScores</a></li>
+                <li><a href="today.html">Today</a></li>
+                <li><a href="leagues.html">Leagues</a></li>
+                <li><a href="Cups.html">Cups</a></li>
                 <li><a href="login.html">Login</a></li>
-                <li><img src="lamp.png" id="icon"></li>
+                <li><label>
+                  <input type="checkbox" id="darkm">
+                  <span class="check"></span>
+                </label></li>
                 <li><div class="korisnik">
                   <p id="korisnik">
                   </p>
                 </div></li>
               </ul>
-              
+              <script>myFunction()</script>
             </nav>
           </div>
           <script>
-            var icon=document.getElementById("icon");
-            icon.onclick=function(){
+            var darkm=document.getElementById("darkm");
+            darkm.onclick=function(){
               document.body.classList.toggle("lightmode");
               }
           </script>
@@ -39,27 +43,9 @@
 
     <section>
       <div class="container">
-        <h1>ScoreBoard</h1>
-        <div class="title-box">
-            <p>Local Team</p>
-            <p id="elapsed">45'</p>
-            <p>Visitor Team</p>
-        </div>
-        <div class="title-box">
-            <div class="team">
-                <img  id="homeLogo" >
-                <p id="homeName">Team name</p>
-            </div>
-            <p id="goals">3  -  1</p>
-            <div class="team">
-                <img id="awayLogo">
-                <p id="awayName">Team name</p>
-            </div>
-             
-        </div>
-        <hr>
+        <h1>LIVE</h1>
         <div id="matchTable" class="matches-table">
-
+          
         </div>
     </div>
      <script src="nsjs.js"></script>
@@ -70,7 +56,7 @@
         <h1>
         <img src="NScore logo.png" alt=""></h1>
         <p>
-            NScore je sajt na kojem mozete uzivo pratiti rezultate svih fudbalskih, kosarkaskih i teniskih meceva, sa statistikom i ligaskim tabelama. Live utakmice su precizno azurirane, sa tacnim vremenom, strelcima pogodaka i asistentima, kartonima...  
+            NScore je sajt na kojem mozete uzivo pratiti rezultate svih fudbalskih utakmica, sa statistikom i ligaskim tabelama. Live utakmice su precizno azurirane, sa tacnim vremenom, strelcima pogodaka i asistentima, kartonima...  
         </p>
         </div>
         <ul class="r-footer">
@@ -79,8 +65,8 @@
         Social</h2>
         <ul class="box">
         <li><a href="#">Facebook</a></li>
-        <li><a href="#">Twitter</a></li>
-        <li><a href="#">Instagram</a></li>
+        <li><a href="https://twitter.com/">Twitter</a></li>
+        <li><a href="https://www.instagram.com/">Instagram</a></li>
         <li><a href="#">TikTok</a></li>
         </ul>
         </li>
@@ -106,7 +92,7 @@
         </ul>
         <div class="b-footer">
         <p>
-        All rights reserved ©NScore 2022 </p>
+        All rights reserved © NScore 2022 </p>
         </div>
         </footer>
 </body>
