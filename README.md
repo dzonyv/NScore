@@ -14,7 +14,7 @@ The project was built to provide a simple and clear way of displaying football d
 - CSS
 - JavaScript
 - REST API
-- 
+
 ## Purpose
 This project was created as a practical exercise in web development, API integration, and sports data presentation.
 
