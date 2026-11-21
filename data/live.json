@@ -1,0 +1,125 @@
+{
+  "_napomena": "PRIMER-PODACI: izmišljeni rezultati za demo. Ovo nisu stvarne utakmice ni tabele.",
+  "response": [
+    {
+      "fixture": {
+        "id": 1,
+        "time": null,
+        "status": {
+          "short": "2H",
+          "elapsed": 67
+        }
+      },
+      "league": {
+        "id": 39,
+        "name": "Premier League"
+      },
+      "teams": {
+        "home": {
+          "id": 42,
+          "name": "Arsenal",
+          "logo": "https://media.api-sports.io/football/teams/42.png"
+        },
+        "away": {
+          "id": 49,
+          "name": "Chelsea",
+          "logo": "https://media.api-sports.io/football/teams/49.png"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 1
+      }
+    },
+    {
+      "fixture": {
+        "id": 2,
+        "time": null,
+        "status": {
+          "short": "HT",
+          "elapsed": 45
+        }
+      },
+      "league": {
+        "id": 140,
+        "name": "La Liga"
+      },
+      "teams": {
+        "home": {
+          "id": 541,
+          "name": "Real Madrid",
+          "logo": "https://media.api-sports.io/football/teams/541.png"
+        },
+        "away": {
+          "id": 530,
+          "name": "Atletico Madrid",
+          "logo": "https://media.api-sports.io/football/teams/530.png"
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "fixture": {
+        "id": 3,
+        "time": null,
+        "status": {
+          "short": "1H",
+          "elapsed": 23
+        }
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A"
+      },
+      "teams": {
+        "home": {
+          "id": 505,
+          "name": "Inter",
+          "logo": "https://media.api-sports.io/football/teams/505.png"
+        },
+        "away": {
+          "id": 489,
+          "name": "AC Milan",
+          "logo": "https://media.api-sports.io/football/teams/489.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    {
+      "fixture": {
+        "id": 4,
+        "time": null,
+        "status": {
+          "short": "2H",
+          "elapsed": 81
+        }
+      },
+      "league": {
+        "id": 286,
+        "name": "Super Liga"
+      },
+      "teams": {
+        "home": {
+          "id": 598,
+          "name": "Crvena zvezda",
+          "logo": "https://media.api-sports.io/football/teams/598.png"
+        },
+        "away": {
+          "id": 573,
+          "name": "Partizan",
+          "logo": "https://media.api-sports.io/football/teams/573.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 1
+      }
+    }
+  ]
+}

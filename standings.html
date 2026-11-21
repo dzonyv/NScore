@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="sr-Latn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NScore – Tabela</title>
+    <link rel="stylesheet" href="osnovno.css">
+    <link rel="stylesheet" href="takmicenja.css">
+    <script src="common.js"></script>
+</head>
+<body class="flex">
+
+    <header>
+        <div class="container flex">
+
+            <div class="header-logo">
+                <a href="index.html"><img src="nscore-logo.png" alt="NScore logo"></a>
+            </div>
+            <nav>
+                <ul id="glavni-meni" class="flex column-gap-10">
+                    <li><a href="index.html">LiveScores</a></li>
+                    <li><a href="today.html">Today</a></li>
+                    <li><a href="leagues.html">Leagues</a></li>
+                    <li><a href="Cups.html">Cups</a></li>
+                    <li><a href="Login.html">Login</a></li>
+                    <li class="mode-prekidac">
+                        <label title="Tamni režim">
+                            <input type="checkbox" id="darkm" aria-label="Tamni režim" hidden>
+                            <div class="check"></div>
+                        </label>
+                    </li>
+                </ul>
+            </nav>
+
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <h1 id="standings-title">Tabela</h1>
+            <p class="demo-napomena">Demo: prikazani su primer-podaci, a ne pravi rezultati.</p>
+            <div id="standings"></div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+
+            <div class="row flex column-gap-10 footer-red">
+                <div class="footer-levo">
+                    <div class="footer-logo">
+                        <img src="nscore-logo.png" alt="NScore logo">
+                    </div>
+                </div>
+                <div class="footer-opis">
+                    <p>NScore je moj projekat iz 2022. godine: sajt za praćenje fudbalskih rezultata i tabela. Demo verzija ne koristi pravi API, nego prikazuje primer-podatke.</p>
+                    <p><a href="https://github.com/dzonyv/NScore">Izvorni kod na GitHubu</a></p>
+                </div>
+            </div>
+
+            <div class="row text-center">
+                <p class="copyright">© NScore 2022</p>
+            </div>
+
+        </div>
+    </footer>
+    <script src="competitions.js"></script>
+    <script src="standings.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,42 @@
+/* css za stranice Leagues, Cups i tabelu takmicenja */
+
+.competition-tile {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+.competition-tile img {
+    width: 32px;
+    height: auto;
+    margin-right: 10px;
+}
+.competition-link {
+    color: var(--secondary-color);
+}
+
+.table-scroll {
+    overflow-x: auto;
+    margin: 20px 0;
+}
+.standings-table {
+    margin: 0 auto;
+    border-collapse: collapse;
+    font-size: 14px;
+}
+.standings-table th,
+.standings-table td {
+    padding: 6px 10px;
+    border-bottom: 1px solid var(--secondary-color);
+}
+.standings-table .team-cell {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    text-align: left;
+    white-space: nowrap;
+}
+.standings-table img {
+    width: 22px;
+    height: 22px;
+}

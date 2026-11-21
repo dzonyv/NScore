@@ -1,0 +1,275 @@
+{
+  "_napomena": "PRIMER-PODACI: izmišljeni rezultati za demo. Ovo nisu stvarne utakmice ni tabele.",
+  "response": [
+    {
+      "fixture": {
+        "id": 11,
+        "time": null,
+        "status": {
+          "short": "FT",
+          "elapsed": 90
+        }
+      },
+      "league": {
+        "id": 39,
+        "name": "Premier League"
+      },
+      "teams": {
+        "home": {
+          "id": 33,
+          "name": "Manchester United",
+          "logo": "https://media.api-sports.io/football/teams/33.png"
+        },
+        "away": {
+          "id": 40,
+          "name": "Liverpool",
+          "logo": "https://media.api-sports.io/football/teams/40.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 3
+      }
+    },
+    {
+      "fixture": {
+        "id": 1,
+        "time": null,
+        "status": {
+          "short": "2H",
+          "elapsed": 67
+        }
+      },
+      "league": {
+        "id": 39,
+        "name": "Premier League"
+      },
+      "teams": {
+        "home": {
+          "id": 42,
+          "name": "Arsenal",
+          "logo": "https://media.api-sports.io/football/teams/42.png"
+        },
+        "away": {
+          "id": 49,
+          "name": "Chelsea",
+          "logo": "https://media.api-sports.io/football/teams/49.png"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 1
+      }
+    },
+    {
+      "fixture": {
+        "id": 12,
+        "time": "21:00",
+        "status": {
+          "short": "NS",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 39,
+        "name": "Premier League"
+      },
+      "teams": {
+        "home": {
+          "id": 50,
+          "name": "Manchester City",
+          "logo": "https://media.api-sports.io/football/teams/50.png"
+        },
+        "away": {
+          "id": 47,
+          "name": "Tottenham",
+          "logo": "https://media.api-sports.io/football/teams/47.png"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 2,
+        "time": null,
+        "status": {
+          "short": "HT",
+          "elapsed": 45
+        }
+      },
+      "league": {
+        "id": 140,
+        "name": "La Liga"
+      },
+      "teams": {
+        "home": {
+          "id": 541,
+          "name": "Real Madrid",
+          "logo": "https://media.api-sports.io/football/teams/541.png"
+        },
+        "away": {
+          "id": 530,
+          "name": "Atletico Madrid",
+          "logo": "https://media.api-sports.io/football/teams/530.png"
+        }
+      },
+      "goals": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "fixture": {
+        "id": 13,
+        "time": "21:00",
+        "status": {
+          "short": "NS",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 140,
+        "name": "La Liga"
+      },
+      "teams": {
+        "home": {
+          "id": 529,
+          "name": "Barcelona",
+          "logo": "https://media.api-sports.io/football/teams/529.png"
+        },
+        "away": {
+          "id": 536,
+          "name": "Sevilla",
+          "logo": "https://media.api-sports.io/football/teams/536.png"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 3,
+        "time": null,
+        "status": {
+          "short": "1H",
+          "elapsed": 23
+        }
+      },
+      "league": {
+        "id": 135,
+        "name": "Serie A"
+      },
+      "teams": {
+        "home": {
+          "id": 505,
+          "name": "Inter",
+          "logo": "https://media.api-sports.io/football/teams/505.png"
+        },
+        "away": {
+          "id": 489,
+          "name": "AC Milan",
+          "logo": "https://media.api-sports.io/football/teams/489.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 0
+      }
+    },
+    {
+      "fixture": {
+        "id": 14,
+        "time": null,
+        "status": {
+          "short": "FT",
+          "elapsed": 90
+        }
+      },
+      "league": {
+        "id": 78,
+        "name": "Bundesliga"
+      },
+      "teams": {
+        "home": {
+          "id": 157,
+          "name": "Bayern Munich",
+          "logo": "https://media.api-sports.io/football/teams/157.png"
+        },
+        "away": {
+          "id": 165,
+          "name": "Borussia Dortmund",
+          "logo": "https://media.api-sports.io/football/teams/165.png"
+        }
+      },
+      "goals": {
+        "home": 2,
+        "away": 2
+      }
+    },
+    {
+      "fixture": {
+        "id": 15,
+        "time": "20:45",
+        "status": {
+          "short": "NS",
+          "elapsed": null
+        }
+      },
+      "league": {
+        "id": 61,
+        "name": "Ligue 1"
+      },
+      "teams": {
+        "home": {
+          "id": 85,
+          "name": "Paris Saint Germain",
+          "logo": "https://media.api-sports.io/football/teams/85.png"
+        },
+        "away": {
+          "id": 81,
+          "name": "Marseille",
+          "logo": "https://media.api-sports.io/football/teams/81.png"
+        }
+      },
+      "goals": {
+        "home": null,
+        "away": null
+      }
+    },
+    {
+      "fixture": {
+        "id": 4,
+        "time": null,
+        "status": {
+          "short": "2H",
+          "elapsed": 81
+        }
+      },
+      "league": {
+        "id": 286,
+        "name": "Super Liga"
+      },
+      "teams": {
+        "home": {
+          "id": 598,
+          "name": "Crvena zvezda",
+          "logo": "https://media.api-sports.io/football/teams/598.png"
+        },
+        "away": {
+          "id": 573,
+          "name": "Partizan",
+          "logo": "https://media.api-sports.io/football/teams/573.png"
+        }
+      },
+      "goals": {
+        "home": 1,
+        "away": 1
+      }
+    }
+  ]
+}

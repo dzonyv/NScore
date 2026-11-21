@@ -1,86 +1,94 @@
-/*  function myFunction() {
-    document.getElementById("korisnik").innerHTML = User.firstName.toString() + " " + User.lastName.toString();
-  }
-  var User = {
-    firstName: "Nikola",
-    lastName: "Vlacic",
+// Prikaz utakmica za LiveScores (index.html) i Today (today.html).
+// Koji fajl se ucitava odredjuje data-source atribut na #matchTable.
 
-  };
-*/
+var matchTable = document.querySelector('#matchTable');
 
-//var elapsedTime = document.querySelector("#elapsed");
-//var homeTeamImage = document.querySelector("#homeLogo");
-//var homeTeamName = document.querySelector("#homeName");
-//var awayTeamImage = document.querySelector("#awayLogo");
-//var awayTeamName = document.querySelector("#awayName");
-//var lastMatchGoal = document.querySelector("#goals");
-var matchTable = document.querySelector("#matchTable");
+function statusText(fixture) {
+    var status = fixture['status'];
+    switch (status['short']) {
+        case 'NS': return fixture['time'] || 'Uskoro';
+        case 'HT': return 'Poluvreme';
+        case 'FT': return 'Kraj';
+        case 'PST': return 'Odloženo';
+        default: return status['elapsed'] != null ? status['elapsed'] + "'" : '';
+    }
+}
 
+// Utakmica koja nije pocela nema golove (null), pa umesto "null - null" pise "vs".
+function scoreText(goals) {
+    if (goals['home'] == null || goals['away'] == null) {
+        return 'vs';
+    }
+    return goals['home'] + ' - ' + goals['away'];
+}
 
-//the functions to create an element
-function addMatchTile(data){
-    //createing the tile div
+function createTeam(team) {
+    var box = document.createElement('div');
+    box.classList.add('team');
+    var logo = document.createElement('img');
+    logo.src = team['logo'];
+    logo.alt = '';
+    var name = document.createElement('p');
+    name.textContent = team['name'];
+    box.appendChild(logo);
+    box.appendChild(name);
+    return box;
+}
+
+function addMatchTile(data) {
     var matchtile = document.createElement('div');
-    matchtile.classList.add("match-tile");
-    
+    matchtile.classList.add('match-tile');
+
     var minutaza = document.createElement('div');
-    minutaza.classList.add("minutaza");
-    minutaza.innerHTML=data['fixture']['status']['elapsed'] + "'";
-    
+    minutaza.classList.add('minutaza');
+    minutaza.textContent = statusText(data['fixture']);
 
-    //creating the home match box
-    var homeTeam = document.createElement('div');
-    homeTeam.classList.add("team");
-    //creating the image and the text
-    var homeTileTeamName = document.createElement('p');
-    homeTileTeamName.innerHTML = data['teams']['home']['name'];
-    var homeTileTeamLogo = document.createElement('img');
-    homeTileTeamLogo.src=data['teams']['home']['logo'];
-    homeTeam.appendChild(homeTileTeamLogo);
-    homeTeam.appendChild(homeTileTeamName);
-
-    var awayTeam = document.createElement('div');
-    awayTeam.classList.add("team");
-    //creating the image and the text
-    var awayTileTeamName = document.createElement('p');
-    awayTileTeamName.innerHTML = data['teams']['away']['name'];
-    var awayTileTeamLogo = document.createElement('img');
-    awayTileTeamLogo.src=data['teams']['away']['logo'];
-    awayTeam.appendChild(awayTileTeamLogo);
-    awayTeam.appendChild(awayTileTeamName);
-
-    //createing the score
     var score = document.createElement('p');
-    score.innerHTML = data['goals']['home'] + " - " + data['goals']['away']
+    score.classList.add('score');
+    score.textContent = scoreText(data['goals']);
 
-    //append all the element to the parent
-    matchtile.appendChild(homeTeam);
+    matchtile.appendChild(createTeam(data['teams']['home']));
     matchtile.appendChild(score);
     matchtile.appendChild(minutaza);
-    matchtile.appendChild(awayTeam);
+    matchtile.appendChild(createTeam(data['teams']['away']));
     matchTable.appendChild(matchtile);
-} 
+}
 
-//fetching the data
-fetch("https://api-football-v1.p.rapidapi.com/v3/fixtures?live=all", {
-    "method": "GET",
-    "headers": {
-        'X-RapidAPI-Host': 'api-football-v1.p.rapidapi.com',
-		'X-RapidAPI-Key': 'REMOVED_API_KEY'
-    }
-})
-.then(response => response.json().then(data => {
-    console.log('API Response:', data);
-    var matchesList = data['response'];
-    console.log('Matches List:', matchesList);
-    if(matchesList.length > 0 && matchesList[0]['fixture'] !== undefined){
-        for(var i = 0; i < matchesList.length; i++){
-            addMatchTile(matchesList[i]);
+function addLeagueHeading(league) {
+    var heading = document.createElement('h2');
+    heading.classList.add('league-heading');
+    heading.textContent = league['name'];
+    matchTable.appendChild(heading);
+}
+
+// Today stranica prikazuje danasnji datum u naslovu.
+var dateLabel = document.getElementById('datum');
+if (dateLabel) {
+    dateLabel.textContent = new Intl.DateTimeFormat('sr-Latn-RS', {
+        day: 'numeric', month: 'long', year: 'numeric'
+    }).format(new Date());
+}
+
+showStatus(matchTable, 'loading', 'Učitavanje utakmica...');
+
+loadData(matchTable.dataset.source)
+    .then(function (data) {
+        var matches = data['response'] || [];
+        matchTable.replaceChildren();
+        if (matches.length === 0) {
+            showStatus(matchTable, 'empty', matchTable.dataset.empty || 'Nema utakmica.');
+            return;
         }
-    } else {
-        document.getElementById("matchTable").innerHTML = "Trenutno nema utakmica";
-    }
-}))
-.catch(err => {
-    console.log(err);
-});
+        var lastLeague = null;
+        matches.forEach(function (match) {
+            if (matchTable.dataset.groupByLeague === 'true' && match['league']['id'] !== lastLeague) {
+                addLeagueHeading(match['league']);
+                lastLeague = match['league']['id'];
+            }
+            addMatchTile(match);
+        });
+    })
+    .catch(function (err) {
+        console.error(err);
+        showStatus(matchTable, 'error', 'Greška: utakmice trenutno ne mogu da se učitaju.');
+    });
