@@ -20,9 +20,14 @@ function cell(tag, text) {
     return el;
 }
 
-function renderTable(rows) {
+function renderTable(rows, index, groups) {
     var tableEl = document.createElement('table');
     tableEl.classList.add('standings-table');
+
+    // Vise grupa (npr. grupna faza kupa): svaka tabela dobija naziv grupe.
+    if (groups.length > 1 && rows.length && rows[0]['group']) {
+        tableEl.appendChild(cell('caption', rows[0]['group']));
+    }
 
     var headRow = document.createElement('tr');
     COLUMNS.forEach(function (col) {
@@ -62,16 +67,25 @@ if (!competition) {
     title.textContent = 'Tabela';
     showStatus(table, 'error', 'Nepoznato takmičenje. Izaberi ligu ili kup iz menija.');
 } else {
-    title.textContent = competition.name + ' ' + seasonLabel(currentSeason());
+    title.textContent = competition.name;
     document.title = 'NScore – ' + competition.name;
     showStatus(table, 'loading', 'Učitavanje tabele...');
 
-    loadData('standings')
+    loadData('api/standings?league=' + competition.id, 'standings')
         .then(function (data) {
+            // Proxy vraca sezonu koju je stvarno trazio; besplatni API plan nema tekucu.
+            var season = data['season'] || currentSeason();
+            title.textContent = competition.name + ' ' + seasonLabel(season);
+            if (season < currentSeason()) {
+                var note = document.getElementById('season-note');
+                note.textContent = 'Besplatni API plan ne pokriva tekuću sezonu, pa je prikazana sezona ' + seasonLabel(season) + '.';
+                note.hidden = false;
+            }
+
             var groups = data['standings'][String(competition.id)];
             table.replaceChildren();
             if (!groups || groups.length === 0) {
-                showStatus(table, 'empty', 'Za ovo takmičenje nema tabele u primer-podacima.');
+                showStatus(table, 'empty', 'Za ovo takmičenje nema tabele.');
                 return;
             }
             groups.forEach(renderTable);

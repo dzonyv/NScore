@@ -1,0 +1,6 @@
+{
+  "name": "nscore",
+  "private": true,
+  "type": "module",
+  "description": "NScore: staticni sajt + Vercel funkcije (api/) kao proxy za API-Football"
+}

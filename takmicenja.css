@@ -24,6 +24,10 @@
     border-collapse: collapse;
     font-size: 14px;
 }
+.standings-table caption {
+    padding: 8px 0;
+    font-size: 16px;
+}
 .standings-table th,
 .standings-table td {
     padding: 6px 10px;

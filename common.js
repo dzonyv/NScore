@@ -38,14 +38,38 @@ function seasonLabel(season) {
     return season + '/' + String((season + 1) % 100).padStart(2, '0');
 }
 
-// Demo nema API kljuc, pa se podaci citaju iz data/*.json (primer-podaci).
-function loadData(name) {
-    return fetch('data/' + name + '.json').then(function (response) {
+function fetchJson(url) {
+    return fetch(url).then(function (response) {
         if (!response.ok) {
             throw new Error('HTTP ' + response.status);
         }
         return response.json();
     });
+}
+
+// Pravi podaci stizu preko proxyja u api/ (Vercel funkcije, kljuc je na serveru).
+// Gde proxy ne postoji (GitHub Pages, lokalni staticni server) ruta vraca 404,
+// pa se prikazuju primer-podaci iz data/ uz vidljivu oznaku "Demo".
+function loadData(apiPath, sampleName) {
+    return fetch(apiPath).then(function (response) {
+        if (response.status === 404) {
+            return fetchJson('data/' + sampleName + '.json').then(function (data) {
+                document.querySelectorAll('.demo-podaci').forEach(function (el) { el.hidden = false; });
+                data.demo = true;
+                return data;
+            });
+        }
+        if (!response.ok) {
+            throw new Error('HTTP ' + response.status);
+        }
+        return response.json();
+    });
+}
+
+function formatDate(date) {
+    return new Intl.DateTimeFormat('sr-Latn-RS', {
+        day: 'numeric', month: 'long', year: 'numeric'
+    }).format(date);
 }
 
 // Poruka za ucitavanje, gresku ili prazan rezultat.

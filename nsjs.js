@@ -1,15 +1,38 @@
 // Prikaz utakmica za LiveScores (index.html) i Today (today.html).
-// Koji fajl se ucitava odredjuje data-source atribut na #matchTable.
+// Obe stranice citaju isti odgovor (danasnje utakmice); Live zadrzava samo one u toku.
 
 var matchTable = document.querySelector('#matchTable');
+var isLiveView = matchTable.dataset.view === 'live';
+var REFRESH_MS = 2 * 60 * 1000;
+var IN_PLAY = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'SUSP', 'INT', 'LIVE'];
+
+function kickoffTime(fixture) {
+    if (fixture['time']) {
+        return fixture['time']; // primer-podaci
+    }
+    return new Date(fixture['timestamp'] * 1000).toLocaleTimeString('sr-Latn-RS', {
+        hour: '2-digit', minute: '2-digit'
+    });
+}
 
 function statusText(fixture) {
     var status = fixture['status'];
     switch (status['short']) {
-        case 'NS': return fixture['time'] || 'Uskoro';
+        case 'NS': return kickoffTime(fixture);
+        case 'TBD': return 'Vreme nije poznato';
         case 'HT': return 'Poluvreme';
+        case 'BT': return 'Pauza';
+        case 'P': return 'Penali';
         case 'FT': return 'Kraj';
+        case 'AET': return 'Kraj (produžeci)';
+        case 'PEN': return 'Kraj (penali)';
         case 'PST': return 'Odloženo';
+        case 'CANC': return 'Otkazano';
+        case 'ABD': return 'Prekinuto';
+        case 'SUSP':
+        case 'INT': return 'Prekid';
+        case 'AWD':
+        case 'WO': return 'Službeni rezultat';
         default: return status['elapsed'] != null ? status['elapsed'] + "'" : '';
     }
 }
@@ -61,34 +84,51 @@ function addLeagueHeading(league) {
     matchTable.appendChild(heading);
 }
 
-// Today stranica prikazuje danasnji datum u naslovu.
-var dateLabel = document.getElementById('datum');
-if (dateLabel) {
-    dateLabel.textContent = new Intl.DateTimeFormat('sr-Latn-RS', {
-        day: 'numeric', month: 'long', year: 'numeric'
-    }).format(new Date());
+function render(data) {
+    var matches = data['response'] || [];
+    if (isLiveView) {
+        matches = matches.filter(function (m) { return IN_PLAY.includes(m['fixture']['status']['short']); });
+    }
+
+    // Today: datum iz odgovora (proxy racuna dan po beogradskom vremenu), inace danasnji.
+    var dateLabel = document.getElementById('datum');
+    if (dateLabel) {
+        var parts = data['date'] ? data['date'].split('-').map(Number) : null;
+        dateLabel.textContent = formatDate(parts ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date());
+    }
+
+    matchTable.replaceChildren();
+    if (matches.length === 0) {
+        showStatus(matchTable, 'empty', matchTable.dataset.empty || 'Nema utakmica.');
+        return;
+    }
+    var lastLeague = null;
+    matches.forEach(function (match) {
+        if (matchTable.dataset.groupByLeague === 'true' && match['league']['id'] !== lastLeague) {
+            addLeagueHeading(match['league']);
+            lastLeague = match['league']['id'];
+        }
+        addMatchTile(match);
+    });
+}
+
+function update(firstLoad) {
+    loadData('api/fixtures', matchTable.dataset.view)
+        .then(function (data) {
+            render(data);
+            // Pravi podaci se povremeno osvezavaju; primer-podaci se ne menjaju.
+            if (firstLoad && !data.demo) {
+                setInterval(update, REFRESH_MS);
+            }
+        })
+        .catch(function (err) {
+            console.error(err);
+            // Ako osvezavanje ne uspe, ostaju poslednji prikazani rezultati.
+            if (firstLoad) {
+                showStatus(matchTable, 'error', 'Greška: utakmice trenutno ne mogu da se učitaju.');
+            }
+        });
 }
 
 showStatus(matchTable, 'loading', 'Učitavanje utakmica...');
-
-loadData(matchTable.dataset.source)
-    .then(function (data) {
-        var matches = data['response'] || [];
-        matchTable.replaceChildren();
-        if (matches.length === 0) {
-            showStatus(matchTable, 'empty', matchTable.dataset.empty || 'Nema utakmica.');
-            return;
-        }
-        var lastLeague = null;
-        matches.forEach(function (match) {
-            if (matchTable.dataset.groupByLeague === 'true' && match['league']['id'] !== lastLeague) {
-                addLeagueHeading(match['league']);
-                lastLeague = match['league']['id'];
-            }
-            addMatchTile(match);
-        });
-    })
-    .catch(function (err) {
-        console.error(err);
-        showStatus(matchTable, 'error', 'Greška: utakmice trenutno ne mogu da se učitaju.');
-    });
+update(true);

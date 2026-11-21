@@ -150,6 +150,10 @@ footer a {
     color: var(--light-text);
 }
 
+[hidden] {
+    display: none !important;
+}
+
 /* poruke: ucitavanje, greska, prazan rezultat, napomena za demo */
 .status {
     margin: 40px 0;
