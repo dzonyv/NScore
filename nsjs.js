@@ -51,6 +51,9 @@ function createTeam(team) {
     var logo = document.createElement('img');
     logo.src = team['logo'];
     logo.alt = '';
+    logo.width = 52;
+    logo.height = 52;
+    logo.loading = 'lazy';
     var name = document.createElement('p');
     name.textContent = team['name'];
     box.appendChild(logo);
@@ -87,6 +90,9 @@ function addLeagueHeading(league) {
     var logo = document.createElement('img');
     logo.src = competitionLogo(league['id']); // iz competitions.js
     logo.alt = '';
+    logo.width = 24;
+    logo.height = 24;
+    logo.loading = 'lazy';
     heading.appendChild(logo);
     heading.appendChild(document.createTextNode(league['name']));
     matchTable.appendChild(heading);

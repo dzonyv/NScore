@@ -19,7 +19,7 @@ function headerHtml() {
         return '<li><a href="' + item[0] + '">' + item[1] + '</a></li>';
     }).join('');
     return '<header><div class="container flex">' +
-        '<div class="header-logo"><a href="index.html"><img src="nscore-logo.png" alt="NScore logo"></a></div>' +
+        '<div class="header-logo"><a href="index.html"><img src="nscore-logo.png" alt="NScore logo" width="96" height="96"></a></div>' +
         '<nav><ul id="glavni-meni" class="flex column-gap-10">' + items +
         '<li class="mode-prekidac"><label title="Tamni režim">' +
         '<input type="checkbox" id="darkm" class="sakriven" aria-label="Tamni režim">' +
@@ -42,7 +42,7 @@ function footerHtml() {
         '<a href="https://github.com/dzonyv/NScore">GitHub</a>'].concat(otherVersionLinks());
     return '<footer><div class="container">' +
         '<div class="row footer-red">' +
-        '<div class="footer-logo"><img src="nscore-logo.png" alt="NScore logo"></div>' +
+        '<div class="footer-logo"><img src="nscore-logo.png" alt="NScore logo" width="80" height="80" loading="lazy"></div>' +
         '<div class="footer-opis">' +
         '<p>NScore: fudbalski rezultati uživo, današnje utakmice i tabele liga i kupova.</p>' +
         '<p class="footer-linkovi">' + links.join(' · ') + '</p>' +

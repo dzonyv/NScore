@@ -47,6 +47,9 @@ function renderTable(rows, index, groups) {
         var logo = document.createElement('img');
         logo.src = row['team']['logo'];
         logo.alt = '';
+        logo.width = 22;
+        logo.height = 22;
+        logo.loading = 'lazy';
         teamCell.appendChild(logo);
         teamCell.appendChild(document.createTextNode(row['team']['name']));
         tr.appendChild(teamCell);

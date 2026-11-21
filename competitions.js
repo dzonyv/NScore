@@ -34,6 +34,8 @@ function addCompetitionTile(container, competition) {
     var logo = document.createElement('img');
     logo.src = competitionLogo(competition.id);
     logo.alt = '';
+    logo.width = 32;
+    logo.height = 32;
 
     var link = document.createElement('a');
     link.href = 'standings.html?lid=' + competition.id;

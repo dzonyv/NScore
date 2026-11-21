@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Bungee&display=swap');
-
 /* css za svaku stranicu, od esencijalnog znacaja (header, footer, container...) */
 
 :root {
@@ -53,6 +51,11 @@ main {
     background-color: var(--primary-color);
     color: var(--secondary-color);
     text-align: center;
+}
+/* stranice koje ucitavaju podatke: footer je od pocetka ispod ekrana,
+   pa ne "skace" kad stignu utakmice ili tabela */
+main:has(#matchTable, #standings) {
+    min-height: 100vh;
 }
 
 footer {
