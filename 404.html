@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="sr-Latn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NScore – Stranica nije pronađena</title>
+    <script>
+        // 404 se prikazuje na bilo kojoj putanji, pa relativni linkovi moraju da krenu od korena sajta:
+        // /NScore/ na GitHub Pages, / na Vercelu i lokalno.
+        var base = document.createElement('base');
+        base.href = window.location.hostname.endsWith('github.io') ? '/NScore/' : '/';
+        document.head.appendChild(base);
+    </script>
+    <link rel="stylesheet" href="osnovno.css">
+    <script src="common.js"></script>
+    <style>
+        .greska-404 {
+            margin-top: 60px;
+            margin-bottom: 60px;
+        }
+        .greska-404 .broj {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.1em;
+            margin: 0;
+            font-size: clamp(5rem, 18vw, 9rem);
+            line-height: 1;
+        }
+        .greska-404 .lopta {
+            width: 0.8em;
+            height: 0.8em;
+            animation: kotrljanje 0.9s ease-out;
+        }
+        .greska-404 p {
+            margin: 30px 0;
+        }
+        .greska-404 .na-pocetnu {
+            display: inline-block;
+            padding: 8px 24px;
+            border: 2px solid var(--secondary-color);
+            color: var(--secondary-color);
+            text-decoration: none;
+        }
+        .greska-404 .na-pocetnu:hover,
+        .greska-404 .na-pocetnu:focus-visible {
+            background-color: var(--secondary-color);
+            color: var(--primary-color);
+        }
+        @keyframes kotrljanje {
+            from { transform: translateX(-60px) rotate(-360deg); opacity: 0; }
+            to { transform: none; opacity: 1; }
+        }
+        @media (prefers-reduced-motion: reduce) {
+            .greska-404 .lopta { animation: none; }
+        }
+    </style>
+</head>
+<body class="flex">
+
+    <script src="layout.js" data-part="header"></script>
+
+    <main>
+        <div class="container greska-404">
+            <h1 class="broj" aria-label="404">
+                <span aria-hidden="true">4</span>
+                <svg class="lopta" viewBox="0 0 100 100" aria-hidden="true" fill="none" stroke="currentColor" stroke-width="7" stroke-linejoin="round" stroke-linecap="round">
+                    <circle cx="50" cy="50" r="44"/>
+                    <polygon points="50,32 67.1,44.4 60.6,64.6 39.4,64.6 32.9,44.4"/>
+                    <path d="M50 32V6M67.1 44.4L91.8 36.4M60.6 64.6L75.9 85.6M39.4 64.6L24.1 85.6M32.9 44.4L8.2 36.4"/>
+                </svg>
+                <span aria-hidden="true">4</span>
+            </h1>
+            <p>Stranica koju tražiš ne postoji ili je premeštena.</p>
+            <a class="na-pocetnu" href="index.html">Na početnu</a>
+        </div>
+    </main>
+
+    <script src="layout.js" data-part="footer"></script>
+
+</body>
+</html>
