@@ -38,13 +38,13 @@ function otherVersionLinks() {
 }
 
 function footerHtml() {
-    var links = ['Podaci: <a href="https://www.api-football.com/">API-Football</a>',
+    var links = ['<a href="https://www.api-football.com/">API-Football</a>',
         '<a href="https://github.com/dzonyv/NScore">GitHub</a>'].concat(otherVersionLinks());
     return '<footer><div class="container">' +
-        '<div class="row flex footer-red">' +
+        '<div class="row footer-red">' +
         '<div class="footer-logo"><img src="nscore-logo.png" alt="NScore logo"></div>' +
         '<div class="footer-opis">' +
-        '<p>NScore: fudbalski rezultati uživo, današnje utakmice i tabele liga i kupova. Projekat iz 2022, sređen 2026.</p>' +
+        '<p>NScore: fudbalski rezultati uživo, današnje utakmice i tabele liga i kupova.</p>' +
         '<p class="footer-linkovi">' + links.join(' · ') + '</p>' +
         '</div></div>' +
         '<div class="row text-center"><p class="copyright">© 2022–2026 NScore</p></div>' +
