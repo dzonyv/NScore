@@ -69,6 +69,7 @@ if (!competition) {
 } else {
     title.textContent = competition.name;
     document.title = 'NScore – ' + competition.name;
+    setActiveNav(competition.type === 'Cup' ? 'Cups.html' : 'leagues.html');
     showStatus(table, 'loading', 'Učitavanje tabele...');
 
     loadData('api/standings?league=' + competition.id, 'standings')

@@ -10,70 +10,27 @@
 </head>
 <body class="flex">
 
-    <header>
-        <div class="container flex">
-
-            <div class="header-logo">
-                <a href="index.html"><img src="nscore-logo.png" alt="NScore logo"></a>
-            </div>
-            <nav>
-                <ul id="glavni-meni" class="flex column-gap-10">
-                    <li><a href="index.html">LiveScores</a></li>
-                    <li><a href="today.html">Today</a></li>
-                    <li><a href="leagues.html">Leagues</a></li>
-                    <li><a href="Cups.html">Cups</a></li>
-                    <li><a href="Login.html">Login</a></li>
-                    <li class="mode-prekidac">
-                        <label title="Tamni režim">
-                            <input type="checkbox" id="darkm" class="sakriven" aria-label="Tamni režim">
-                            <div class="check"></div>
-                        </label>
-                    </li>
-                </ul>
-            </nav>
-
-        </div>
-    </header>
+    <script src="layout.js" data-part="header"></script>
 
     <main>
         <div class="container">
             <div class="login-box">
-                <h1>Login</h1>
+                <h1>Prijava</h1>
                 <p class="demo-napomena">Mockup: ovo je samo izgled stranice. Prijava ne radi i ništa se ne šalje.</p>
                 <div class="textbox">
-                    <input type="text" placeholder="Username" aria-label="Korisničko ime" disabled>
+                    <input type="text" placeholder="Korisničko ime" aria-label="Korisničko ime" disabled>
                 </div>
 
                 <div class="textbox">
-                    <input type="password" placeholder="Password" aria-label="Lozinka" disabled>
+                    <input type="password" placeholder="Lozinka" aria-label="Lozinka" disabled>
                 </div>
 
-                <input type="button" class="btn" value="Sign in" disabled>
+                <input type="button" class="btn" value="Prijavi se" disabled>
             </div>
         </div>
     </main>
 
-    <footer>
-        <div class="container">
-
-            <div class="row flex column-gap-10 footer-red">
-                <div class="footer-levo">
-                    <div class="footer-logo">
-                        <img src="nscore-logo.png" alt="NScore logo">
-                    </div>
-                </div>
-                <div class="footer-opis">
-                    <p>NScore je moj projekat iz 2022. godine: sajt za praćenje fudbalskih rezultata i tabela. Podaci stižu sa API-Football servisa, a verzija bez servera (GitHub Pages) prikazuje primer-podatke.</p>
-                    <p><a href="https://github.com/dzonyv/NScore">GitHub</a></p>
-                </div>
-            </div>
-
-            <div class="row text-center">
-                <p class="copyright">© NScore 2022</p>
-            </div>
-
-        </div>
-    </footer>
+    <script src="layout.js" data-part="footer"></script>
 
 </body>
 </html>
