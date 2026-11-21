@@ -20,10 +20,14 @@
 html,
 body {
     margin: 0;
-    height: 100%;
     font-family: 'Bungee', cursive;
 }
+html {
+    height: 100%;
+}
+/* min-height (ne height): body raste sa sadrzajem, a footer je uvek na dnu */
 body {
+    min-height: 100%;
     flex-direction: column;
 }
 
@@ -45,7 +49,8 @@ header > .container {
 }
 
 main {
-    flex-grow: 1;
+    /* raste da popuni ekran, ali se nikad ne skuplja ispod svog sadrzaja */
+    flex: 1 0 auto;
     padding-left: 10px;
     padding-right: 10px;
     background-color: var(--primary-color);
