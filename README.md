@@ -2,7 +2,7 @@
 
 ![NScore, the Today page](docs/screenshot.png)
 
-NScore is a football scores website I made in 2022 while learning HTML, CSS and JavaScript. It has a page for live matches, a list of today's matches, and standings for the top leagues and cups. There are no frameworks and no build step.
+NScore is a football scores website I made in 2022 while learning HTML, CSS and JavaScript. It has a page for live matches, a list of today's matches, and a list of leagues and cups with their standings. The sample data has tables for seven leagues and the Champions League; the other cups show an empty state. There are no frameworks and no build step.
 
 Demo: https://dzonyv.github.io/NScore/
 
@@ -34,7 +34,7 @@ MIT, see [LICENSE](LICENSE).
 
 ## Srpski
 
-NScore je sajt za fudbalske rezultate koji sam napravio 2022. godine, dok sam učio HTML, CSS i JavaScript. Ima stranicu sa utakmicama uživo, listu današnjih utakmica i tabele najvećih liga i kupova. Nema frameworka ni build koraka.
+NScore je sajt za fudbalske rezultate koji sam napravio 2022. godine, dok sam učio HTML, CSS i JavaScript. Ima stranicu sa utakmicama uživo, listu današnjih utakmica i spisak liga i kupova sa tabelama. Primer-podaci imaju tabele za sedam liga i Ligu šampiona; ostali kupovi prikazuju poruku da tabele nema. Nema frameworka ni build koraka.
 
 Demo: https://dzonyv.github.io/NScore/
 

@@ -117,6 +117,18 @@ input[type="checkbox"]:checked ~ .check::before {
 .mode-prekidac {
     width: 40px;
 }
+/* checkbox je nevidljiv, ali ostaje dostupan sa tastature */
+.sakriven {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    margin: 0;
+}
+input[type="checkbox"]:focus-visible ~ .check {
+    outline: 3px solid var(--light-text);
+    outline-offset: 2px;
+}
 
 /* footer detalji */
 .footer-levo {
@@ -179,7 +191,7 @@ footer a {
 }
 
 /* manji ekrani: meni ide ispod logoa, footer u jednu kolonu */
-@media (max-width: 900px) {
+@media (max-width: 1100px) {
     header > .container {
         flex-direction: column;
         align-items: center;
