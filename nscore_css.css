@@ -4,47 +4,81 @@
     margin-top: 30px;
     display: flex;
     flex-direction: column;
-}
-
-.league-heading {
-    margin: 30px 0 0;
-    font-size: 1.1rem;
-}
-
-.match-tile {
-    position: relative;
-    margin: 10px auto;
-    width: 100%;
-    max-width: 600px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
     align-items: center;
 }
 
-.match-tile img {
-    width: 52px;
-    height: 52px;
+/* traka sa nazivom takmicenja, da se razlikuje od imena klubova */
+.league-heading {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    max-width: 600px;
+    box-sizing: border-box;
+    margin: 30px 0 10px;
+    padding: 8px 12px;
+    background-color: var(--band-color);
+    color: var(--light-text);
+    font-size: 0.95rem;
+    font-weight: normal;
+    text-align: left;
+    letter-spacing: 0.05em;
+}
+.league-heading img {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    object-fit: contain;
+    background: rgb(255, 255, 255);
+    border-radius: 4px;
 }
 
-.match-tile p {
-    font-size: 1.2rem;
-}
-
-.match-tile .score {
-    font-size: 1.5rem;
-}
-
-.match-tile .minutaza {
-    position: absolute;
-    top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    font-size: 0.8rem;
+.match-tile {
+    width: 100%;
+    max-width: 600px;
+    margin: 14px 0;
+    display: flex;
+    justify-content: space-around;
+    /* po vrhu: grbovi ostaju u liniji i kad se ime kluba prelomi u dva reda */
+    align-items: flex-start;
 }
 
 .match-tile .team {
     width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* grbovi nisu kvadratni (npr. Liverpool je 78x150), pa ih ne razvlacimo */
+.match-tile img {
+    width: 52px;
+    height: 52px;
+    object-fit: contain;
+}
+
+.match-tile .team p {
+    margin: 8px 0 0;
+    font-size: 1rem;
+}
+
+/* status iznad rezultata, centrirano u visini grbova */
+.match-tile .match-middle {
+    height: 52px;
+    min-width: 90px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.match-tile .minutaza {
+    font-size: 0.75rem;
+}
+
+.match-tile .score {
+    margin: 2px 0 0;
+    font-size: 1.5rem;
 }
 
 @media (max-width: 500px) {
@@ -52,10 +86,17 @@
         width: 36px;
         height: 36px;
     }
-    .match-tile p {
-        font-size: 0.9rem;
+    .match-tile .match-middle {
+        height: 36px;
+        min-width: 70px;
     }
     .match-tile .team {
         width: 90px;
+    }
+    .match-tile .team p {
+        font-size: 0.85rem;
+    }
+    .match-tile .score {
+        font-size: 1.2rem;
     }
 }

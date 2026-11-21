@@ -70,9 +70,13 @@ function addMatchTile(data) {
     score.classList.add('score');
     score.textContent = scoreText(data['goals']);
 
+    var middle = document.createElement('div');
+    middle.classList.add('match-middle');
+    middle.appendChild(minutaza);
+    middle.appendChild(score);
+
     matchtile.appendChild(createTeam(data['teams']['home']));
-    matchtile.appendChild(score);
-    matchtile.appendChild(minutaza);
+    matchtile.appendChild(middle);
     matchtile.appendChild(createTeam(data['teams']['away']));
     matchTable.appendChild(matchtile);
 }
@@ -80,7 +84,11 @@ function addMatchTile(data) {
 function addLeagueHeading(league) {
     var heading = document.createElement('h2');
     heading.classList.add('league-heading');
-    heading.textContent = league['name'];
+    var logo = document.createElement('img');
+    logo.src = competitionLogo(league['id']); // iz competitions.js
+    logo.alt = '';
+    heading.appendChild(logo);
+    heading.appendChild(document.createTextNode(league['name']));
     matchTable.appendChild(heading);
 }
 
