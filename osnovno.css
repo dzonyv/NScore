@@ -97,16 +97,21 @@ footer {
     width: 100%;
 }
 
-/* prekidac za tamni rezim */
+/* prekidac za tamni rezim: sunce levo, mesec desno; kruzic pokriva neaktivnu ikonicu */
 .check {
     position: relative;
     display: block;
-    width: 40px;
-    height: 20px;
-    background: rgb(255, 255, 255);
+    width: 48px;
+    height: 24px;
     cursor: pointer;
-    border-radius: 20px;
-    transition: ease-in 0.5s;
+    border-radius: 24px;
+    background-color: rgb(255, 255, 255);
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%230e253a' stroke-width='2.5' stroke-linecap='round'%3E%3Ccircle cx='12' cy='12' r='4.5'/%3E%3Cpath d='M12 1.5v3M12 19.5v3M1.5 12h3M19.5 12h3M4.6 4.6l2.1 2.1M17.3 17.3l2.1 2.1M4.6 19.4l2.1-2.1M17.3 6.7l2.1-2.1'/%3E%3C/svg%3E"),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='%230e253a' d='M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 14px 14px;
+    background-position: 5px center, right 5px center;
 }
 .check::before {
     content: '';
@@ -114,16 +119,17 @@ footer {
     top: 2px;
     right: 2px;
     background: var(--header-color);
-    width: 16px;
-    height: 16px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
-    transition: 0.5s;
+    transition: transform 0.3s;
 }
+/* svetli rezim: kruzic desno (pokriva mesec), tamni: levo (pokriva sunce) */
 input[type="checkbox"]:checked ~ .check::before {
-    transform: translateX(-20px);
+    transform: translateX(-24px);
 }
 .mode-prekidac {
-    width: 40px;
+    width: 48px;
 }
 .mode-prekidac label {
     display: block;
