@@ -18,13 +18,14 @@ function headerHtml() {
     var items = MENU.map(function (item) {
         return '<li><a href="' + item[0] + '">' + item[1] + '</a></li>';
     }).join('');
-    return '<header><div class="container flex">' +
+    // tri kolone: logo levo, meni u sredini, prekidac za tamni rezim desno
+    return '<header><div class="container">' +
         '<div class="header-logo"><a href="index.html"><img src="nscore-logo.png" alt="NScore logo" width="96" height="96"></a></div>' +
-        '<nav><ul id="glavni-meni" class="flex column-gap-10">' + items +
-        '<li class="mode-prekidac"><label title="Tamni režim">' +
+        '<nav><ul id="glavni-meni" class="flex">' + items + '</ul></nav>' +
+        '<div class="mode-prekidac"><label title="Tamni režim">' +
         '<input type="checkbox" id="darkm" class="sakriven" aria-label="Tamni režim">' +
-        '<div class="check"></div></label></li>' +
-        '</ul></nav></div></header>';
+        '<div class="check"></div></label></div>' +
+        '</div></header>';
 }
 
 // Link ka drugoj verziji sajta: sa demoa ka pravim podacima i obrnuto (lokalno oba).

@@ -38,9 +38,23 @@ header {
     padding-right: 10px;
 }
 
+/* logo | meni | prekidac; spoljne kolone su iste sirine, pa je meni tacno u sredini */
 header > .container {
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "logo meni prekidac";
     align-items: center;
+}
+.header-logo {
+    grid-area: logo;
+    justify-self: start;
+}
+header nav {
+    grid-area: meni;
+}
+.mode-prekidac {
+    grid-area: prekidac;
+    justify-self: end;
 }
 .header-logo img {
     display: block;
@@ -78,9 +92,7 @@ footer {
     padding: 0;
     margin: 0;
     align-items: center;
-}
-#glavni-meni li {
-    margin-left: 50px;
+    column-gap: 50px;
 }
 #glavni-meni a {
     position: relative;
@@ -230,17 +242,19 @@ footer a {
 
 /* manji ekrani: meni ide ispod logoa, footer u jednu kolonu */
 @media (max-width: 900px) {
+    /* gore logo i prekidac, ispod meni preko cele sirine */
     header > .container {
-        flex-direction: column;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "logo prekidac"
+            "meni meni";
         row-gap: 16px;
     }
     #glavni-meni {
         flex-wrap: wrap;
         justify-content: center;
+        column-gap: 24px;
         row-gap: 10px;
-    }
-    #glavni-meni li {
-        margin: 0 12px;
     }
     .footer-red {
         grid-template-columns: 1fr;
