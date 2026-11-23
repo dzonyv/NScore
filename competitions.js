@@ -7,6 +7,7 @@ var COMPETITIONS = [
     { id: 78, name: 'Bundesliga', country: 'Nemačka', type: 'League' },
     { id: 61, name: 'Ligue 1', country: 'Francuska', type: 'League' },
     { id: 88, name: 'Eredivisie', country: 'Holandija', type: 'League' },
+    { id: 94, name: 'Primeira Liga', country: 'Portugal', type: 'League' },
     { id: 286, name: 'Super Liga', country: 'Srbija', type: 'League' },
     { id: 2, name: 'UEFA Champions League', country: 'Evropa', type: 'Cup' },
     { id: 3, name: 'UEFA Europa League', country: 'Evropa', type: 'Cup' },

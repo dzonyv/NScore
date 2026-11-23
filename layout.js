@@ -41,11 +41,15 @@ function otherVersionLinks() {
 function footerHtml() {
     var links = ['<a href="https://www.api-football.com/">API-Football</a>',
         '<a href="https://github.com/dzonyv/NScore">GitHub</a>'].concat(otherVersionLinks());
+    // COMPETITIONS je iz competitions.js, koji se zato ucitava pre footera
+    var leagues = COMPETITIONS.filter(function (c) { return c.type === 'League'; })
+        .map(function (c) { return '<a href="standings.html?lid=' + c.id + '">' + c.name + '</a>'; });
     return '<footer><div class="container">' +
         '<div class="row footer-red">' +
         '<div class="footer-logo"><img src="nscore-logo.png" alt="NScore logo" width="80" height="80" loading="lazy"></div>' +
         '<div class="footer-opis">' +
         '<p>NScore: fudbalski rezultati uživo, današnje utakmice i tabele liga i kupova.</p>' +
+        '<p>Lige: ' + leagues.join(' · ') + '</p>' +
         '<p class="footer-linkovi">' + links.join(' · ') + '</p>' +
         '</div></div>' +
         '<div class="row text-center"><p class="copyright">© 2022–2026 NScore</p></div>' +

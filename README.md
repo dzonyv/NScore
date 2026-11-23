@@ -11,10 +11,10 @@ Demo with sample data: https://dzonyv.github.io/NScore/
 
 The data comes from [API-Football](https://www.api-football.com/). The browser never sees the API key. It calls three small Vercel functions in `api/`, and those call API-Football with the key from an environment variable:
 
-- `/api/fixtures` returns today's matches (Belgrade time) from the 16 competitions on the site. The Live page uses the same response and keeps only the matches in progress.
+- `/api/fixtures` returns today's matches (Belgrade time) from the 17 competitions on the site. The Live page uses the same response and keeps only the matches in progress.
 - `/api/standings?league=39` returns the table for one competition.
 
-The free API plan allows 100 requests a day, so the Vercel CDN caches the responses: 20 minutes for matches and 24 hours for tables. With that, one CDN region makes at most 88 API calls a day, no matter how many people open the site. Live scores can therefore be up to 20 minutes behind.
+The free API plan allows 100 requests a day, so the Vercel CDN caches the responses: 20 minutes for matches and 24 hours for tables. With that, one CDN region makes at most 89 API calls a day, no matter how many people open the site. Live scores can therefore be up to 20 minutes behind.
 
 The free plan also has no access to the current season's tables, only to 2022 to 2024. `API_FOOTBALL_MAX_SEASON=2024` makes the site show the 2024/25 tables, and the page says so. With a paid plan, remove that variable.
 
@@ -60,9 +60,9 @@ Demo sa primer-podacima: https://dzonyv.github.io/NScore/
 
 ### Odakle stižu podaci
 
-Podaci dolaze sa [API-Football](https://www.api-football.com/) servisa. Browser nikad ne vidi API ključ: zove male Vercel funkcije u folderu `api/`, a one zovu API-Football sa ključem iz env varijable. `/api/fixtures` vraća današnje utakmice (po beogradskom vremenu) iz 16 takmičenja sa sajta, a Live stranica iz istog odgovora uzima samo utakmice u toku. `/api/standings?league=39` vraća tabelu jednog takmičenja.
+Podaci dolaze sa [API-Football](https://www.api-football.com/) servisa. Browser nikad ne vidi API ključ: zove male Vercel funkcije u folderu `api/`, a one zovu API-Football sa ključem iz env varijable. `/api/fixtures` vraća današnje utakmice (po beogradskom vremenu) iz 17 takmičenja sa sajta, a Live stranica iz istog odgovora uzima samo utakmice u toku. `/api/standings?league=39` vraća tabelu jednog takmičenja.
 
-Besplatni plan dozvoljava 100 zahteva dnevno, pa Vercel CDN kešira odgovore: utakmice 20 minuta, tabele 24 sata. Tako jedan CDN region pravi najviše 88 poziva dnevno, bez obzira na broj posetilaca, ali rezultati uživo mogu da kasne do 20 minuta.
+Besplatni plan dozvoljava 100 zahteva dnevno, pa Vercel CDN kešira odgovore: utakmice 20 minuta, tabele 24 sata. Tako jedan CDN region pravi najviše 89 poziva dnevno, bez obzira na broj posetilaca, ali rezultati uživo mogu da kasne do 20 minuta.
 
 Besplatni plan nema tabele za tekuću sezonu, samo za 2022–2024. Zato `API_FOOTBALL_MAX_SEASON=2024` prikazuje tabele sezone 2024/25, i to piše na stranici. Sa plaćenim planom tu varijablu treba obrisati.
 

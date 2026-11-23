@@ -4,7 +4,7 @@
 const API_URL = 'https://v3.football.api-sports.io/';
 
 // Ista lista i isti redosled kao u competitions.js; drzati ih uskladjene.
-export const COMPETITION_IDS = [39, 140, 135, 78, 61, 88, 286, 2, 3, 848, 531, 45, 143, 81, 66, 732];
+export const COMPETITION_IDS = [39, 140, 135, 78, 61, 88, 94, 286, 2, 3, 848, 531, 45, 143, 81, 66, 732];
 
 export async function callApi(path, params) {
     const key = process.env.API_FOOTBALL_KEY;

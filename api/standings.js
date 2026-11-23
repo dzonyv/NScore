@@ -3,7 +3,7 @@
 import { callApi, send, sendError, team, COMPETITION_IDS } from './_lib.js';
 
 // Tabela se menja najvise nekoliko puta dnevno (a zavrsena sezona 2024 nikako).
-// 16 takmicenja x 1 poziv dnevno + 72 za utakmice = najvise 88 od 100 dozvoljenih.
+// 17 takmicenja x 1 poziv dnevno + 72 za utakmice = najvise 89 od 100 dozvoljenih.
 const CACHE_SECONDS = 24 * 60 * 60;
 
 // Sezona pocinje leti (od jula). Besplatni plan nema tekucu sezonu,
