@@ -1,5 +1,6 @@
 // Staticna lista takmicenja (ID-jevi iz API-Football).
 // Ranije se preuzimala cela lista od preko hiljadu takmicenja da bi se prikazalo njih 16.
+// hasTable: false su kupovi bez ligaske ili grupne faze (isto kao WITHOUT_TABLE u api/_lib.js).
 var COMPETITIONS = [
     { id: 39, name: 'Premier League', country: 'Engleska', type: 'League' },
     { id: 140, name: 'La Liga', country: 'Španija', type: 'League' },
@@ -12,12 +13,12 @@ var COMPETITIONS = [
     { id: 2, name: 'UEFA Champions League', country: 'Evropa', type: 'Cup' },
     { id: 3, name: 'UEFA Europa League', country: 'Evropa', type: 'Cup' },
     { id: 848, name: 'UEFA Conference League', country: 'Evropa', type: 'Cup' },
-    { id: 531, name: 'UEFA Super Cup', country: 'Evropa', type: 'Cup' },
-    { id: 45, name: 'FA Cup', country: 'Engleska', type: 'Cup' },
-    { id: 143, name: 'Copa del Rey', country: 'Španija', type: 'Cup' },
-    { id: 81, name: 'DFB Pokal', country: 'Nemačka', type: 'Cup' },
-    { id: 66, name: 'Coupe de France', country: 'Francuska', type: 'Cup' },
-    { id: 732, name: 'Kup Srbije', country: 'Srbija', type: 'Cup' }
+    { id: 531, name: 'UEFA Super Cup', country: 'Evropa', type: 'Cup', hasTable: false },
+    { id: 45, name: 'FA Cup', country: 'Engleska', type: 'Cup', hasTable: false },
+    { id: 143, name: 'Copa del Rey', country: 'Španija', type: 'Cup', hasTable: false },
+    { id: 81, name: 'DFB Pokal', country: 'Nemačka', type: 'Cup', hasTable: false },
+    { id: 66, name: 'Coupe de France', country: 'Francuska', type: 'Cup', hasTable: false },
+    { id: 732, name: 'Kup Srbije', country: 'Srbija', type: 'Cup', hasTable: false }
 ];
 
 function competitionLogo(id) {
@@ -39,7 +40,8 @@ function addCompetitionTile(container, competition) {
     logo.height = 32;
 
     var link = document.createElement('a');
-    link.href = 'standings.html?lid=' + competition.id;
+    // Kup bez tabele vodi na svoje danasnje utakmice.
+    link.href = (competition.hasTable === false ? 'today.html?lid=' : 'standings.html?lid=') + competition.id;
     link.classList.add('competition-link');
     link.textContent = competition.name;
 

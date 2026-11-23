@@ -4,6 +4,12 @@
 var matchTable = document.querySelector('#matchTable');
 var isLiveView = matchTable.dataset.view === 'live';
 var REFRESH_MS = 2 * 60 * 1000;
+// Koliko posle isteka podaci jos ne vaze za zastarele (kes na CDN-u, netacan sat kod posetioca).
+var STALE_GRACE_MS = 5 * 60 * 1000;
+var freshness = document.getElementById('svezina');
+var lastData = null;
+// today.html?lid=45: samo utakmice jednog takmicenja (kupovi bez tabele).
+var onlyCompetition = isLiveView ? null : findCompetition(Number(new URLSearchParams(window.location.search).get('lid')));
 var IN_PLAY = ['1H', 'HT', '2H', 'ET', 'BT', 'P', 'SUSP', 'INT', 'LIVE'];
 
 function kickoffTime(fixture) {
@@ -101,7 +107,11 @@ function addLeagueHeading(league) {
 function render(data) {
     var matches = data['response'] || [];
     if (isLiveView) {
-        matches = matches.filter(function (m) { return IN_PLAY.includes(m['fixture']['status']['short']); });
+        // Posle ponoci proxy posebno salje utakmice od juce koje jos traju.
+        matches = (data['stillInPlay'] || []).concat(matches).filter(function (m) { return IN_PLAY.includes(m['fixture']['status']['short']); });
+    }
+    if (onlyCompetition) {
+        matches = matches.filter(function (m) { return m['league']['id'] === onlyCompetition.id; });
     }
 
     // Today: datum iz odgovora (proxy racuna dan po beogradskom vremenu), inace danasnji.
@@ -126,23 +136,80 @@ function render(data) {
     });
 }
 
-function update(firstLoad) {
+function clockText(date) {
+    var time = date.toLocaleTimeString('sr-Latn-RS', { hour: '2-digit', minute: '2-digit' });
+    return date.toDateString() === new Date().toDateString() ? time : formatDate(date) + ' u ' + time;
+}
+
+// "Podaci od 19:42", uz upozorenje kada osvezavanje ne uspe ili stignu zastareli podaci.
+function showFreshness(requestFailed) {
+    if (!lastData['updatedAt']) {
+        return; // primer-podaci nemaju vreme preuzimanja
+    }
+    var validUntil = new Date(lastData['validUntil'] * 1000);
+    // refreshFailed: proxy nije uspeo da osvezi podatke; stillInPlay null: ne zna se sta traje od juce.
+    var stale = requestFailed || lastData['refreshFailed']
+        || (isLiveView && lastData['stillInPlay'] === null)
+        || Date.now() > validUntil.getTime() + STALE_GRACE_MS;
+    var text = 'Podaci od ' + clockText(new Date(lastData['updatedAt'] * 1000)) + '.';
+    if (stale) {
+        text += ' Osvežavanje trenutno ne uspeva, pa rezultati mogu biti zastareli.';
+    } else if (validUntil > new Date()) {
+        text += ' Novi se očekuju oko ' + clockText(validUntil) + '.';
+    }
+    freshness.textContent = text;
+    freshness.classList.toggle('svezina-upozorenje', Boolean(stale));
+    freshness.hidden = false;
+}
+
+function update() {
     loadData('api/fixtures', matchTable.dataset.view)
         .then(function (data) {
             render(data);
-            // Pravi podaci se povremeno osvezavaju; primer-podaci se ne menjaju.
-            if (firstLoad && !data.demo) {
-                setInterval(update, REFRESH_MS);
-            }
+            lastData = data;
+            showFreshness(false);
         })
         .catch(function (err) {
             console.error(err);
-            // Ako osvezavanje ne uspe, ostaju poslednji prikazani rezultati.
-            if (firstLoad) {
-                showStatus(matchTable, 'error', 'Greška: utakmice trenutno ne mogu da se učitaju.');
+            // Ako osvezavanje ne uspe, ostaju poslednji prikazani rezultati, uz upozorenje.
+            if (lastData) {
+                showFreshness(true);
+            } else {
+                showStatus(matchTable, 'error', 'Greška: utakmice trenutno ne mogu da se učitaju. Pokušavamo ponovo automatski.');
+            }
+        })
+        .then(function () {
+            // Pravi podaci se povremeno osvezavaju (i posle greske); primer-podaci se ne menjaju.
+            if (!lastData || !lastData.demo) {
+                setTimeout(refresh, REFRESH_MS);
             }
         });
 }
 
+// Skriven tab ne salje zahteve; osvezava se cim ponovo postane vidljiv.
+var refreshWhenVisible = false;
+
+function refresh() {
+    if (document.hidden) {
+        refreshWhenVisible = true;
+    } else {
+        update();
+    }
+}
+
+document.addEventListener('visibilitychange', function () {
+    if (!document.hidden && refreshWhenVisible) {
+        refreshWhenVisible = false;
+        update();
+    }
+});
+
+if (onlyCompetition) {
+    document.getElementById('takmicenje').textContent = onlyCompetition.name + ', ';
+    document.title = 'NScore – ' + onlyCompetition.name;
+    matchTable.dataset.empty = 'Danas nema utakmica u ovom takmičenju.';
+    setActiveNav(onlyCompetition.type === 'Cup' ? 'Cups.html' : 'leagues.html');
+}
+
 showStatus(matchTable, 'loading', 'Učitavanje utakmica...');
-update(true);
+update();

@@ -38,8 +38,17 @@ function seasonLabel(season) {
     return season + '/' + String((season + 1) % 100).padStart(2, '0');
 }
 
+// Zahtev koji visi se prekida, da stranica ne bi ostala na "Ucitavanje...".
+var FETCH_TIMEOUT_MS = 15 * 1000;
+
+function fetchWithTimeout(url) {
+    // Stariji browseri nemaju AbortSignal.timeout; tamo ostaje zahtev bez roka.
+    var canTimeout = typeof AbortSignal !== 'undefined' && AbortSignal.timeout;
+    return fetch(url, canTimeout ? { signal: AbortSignal.timeout(FETCH_TIMEOUT_MS) } : {});
+}
+
 function fetchJson(url) {
-    return fetch(url).then(function (response) {
+    return fetchWithTimeout(url).then(function (response) {
         if (!response.ok) {
             throw new Error('HTTP ' + response.status);
         }
@@ -51,7 +60,7 @@ function fetchJson(url) {
 // Gde proxy ne postoji (GitHub Pages, lokalni staticni server) ruta vraca 404,
 // pa se prikazuju primer-podaci iz data/ uz vidljivu oznaku "Demo".
 function loadData(apiPath, sampleName) {
-    return fetch(apiPath).then(function (response) {
+    return fetchWithTimeout(apiPath).then(function (response) {
         if (response.status === 404) {
             return fetchJson('data/' + sampleName + '.json').then(function (data) {
                 document.querySelectorAll('.demo-podaci').forEach(function (el) { el.hidden = false; });

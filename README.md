@@ -9,12 +9,12 @@ Demo with sample data: https://dzonyv.github.io/NScore/
 
 ## How the data works
 
-The data comes from [API-Football](https://www.api-football.com/). The browser never sees the API key. It calls three small Vercel functions in `api/`, and those call API-Football with the key from an environment variable:
+The data comes from [API-Football](https://www.api-football.com/). The browser never sees the API key. It calls two small Vercel functions in `api/`, and those call API-Football with the key from an environment variable:
 
 - `/api/fixtures` returns today's matches (Belgrade time) from the 17 competitions on the site. The Live page uses the same response and keeps only the matches in progress.
-- `/api/standings?league=39` returns the table for one competition.
+- `/api/standings?league=39` returns the table for one of the 11 competitions that have one. Knockout cups have no table, so their links show that cup's matches for today.
 
-The free API plan allows 100 requests a day, so the Vercel CDN caches the responses: 20 minutes for matches and 24 hours for tables. With that, one CDN region makes at most 89 API calls a day, no matter how many people open the site. Live scores can therefore be up to 20 minutes behind.
+The free API plan allows 100 requests a day, so responses are cached on the Vercel CDN and in the function's memory. Tables are kept for 24 hours. Matches are kept for 20 minutes while any match is on, otherwise until the next kickoff (at least 20 minutes, at most 3 hours). With that, one function instance makes about 90 API calls on the busiest possible day, and usually far fewer. This is not a hard limit, because a new function instance starts with an empty cache. Live scores can be a little over 20 minutes behind; the page shows when the data was fetched and warns when refreshing fails.
 
 The free plan also has no access to the current season's tables, only to 2022 to 2024. `API_FOOTBALL_MAX_SEASON=2024` makes the site show the 2024/25 tables, and the page says so. With a paid plan, remove that variable.
 
@@ -60,9 +60,9 @@ Demo sa primer-podacima: https://dzonyv.github.io/NScore/
 
 ### Odakle stižu podaci
 
-Podaci dolaze sa [API-Football](https://www.api-football.com/) servisa. Browser nikad ne vidi API ključ: zove male Vercel funkcije u folderu `api/`, a one zovu API-Football sa ključem iz env varijable. `/api/fixtures` vraća današnje utakmice (po beogradskom vremenu) iz 17 takmičenja sa sajta, a Live stranica iz istog odgovora uzima samo utakmice u toku. `/api/standings?league=39` vraća tabelu jednog takmičenja.
+Podaci dolaze sa [API-Football](https://www.api-football.com/) servisa. Browser nikad ne vidi API ključ: zove dve male Vercel funkcije u folderu `api/`, a one zovu API-Football sa ključem iz env varijable. `/api/fixtures` vraća današnje utakmice (po beogradskom vremenu) iz 17 takmičenja sa sajta, a Live stranica iz istog odgovora uzima samo utakmice u toku. `/api/standings?league=39` vraća tabelu jednog od 11 takmičenja koja je imaju. Kupovi na ispadanje nemaju tabelu, pa njihovi linkovi prikazuju današnje utakmice tog kupa.
 
-Besplatni plan dozvoljava 100 zahteva dnevno, pa Vercel CDN kešira odgovore: utakmice 20 minuta, tabele 24 sata. Tako jedan CDN region pravi najviše 89 poziva dnevno, bez obzira na broj posetilaca, ali rezultati uživo mogu da kasne do 20 minuta.
+Besplatni plan dozvoljava 100 zahteva dnevno, pa se odgovori keširaju na Vercel CDN-u i u memoriji funkcije. Tabele se čuvaju 24 sata. Utakmice se čuvaju 20 minuta dok neka traje, a inače do početka sledeće (najmanje 20 minuta, najduže 3 sata). Tako jedna instanca funkcije i najprometnijeg dana pravi oko 90 poziva, a obično mnogo manje. To nije tvrda granica, jer nova instanca kreće sa praznim kešom. Rezultati uživo mogu da kasne nešto više od 20 minuta; stranica prikazuje kada su podaci preuzeti i upozorava kada osvežavanje ne uspe.
 
 Besplatni plan nema tabele za tekuću sezonu, samo za 2022–2024. Zato `API_FOOTBALL_MAX_SEASON=2024` prikazuje tabele sezone 2024/25, i to piše na stranici. Sa plaćenim planom tu varijablu treba obrisati.
 

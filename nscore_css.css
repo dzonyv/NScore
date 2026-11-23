@@ -1,5 +1,16 @@
 /* css fajl za stranice sa utakmicama (LiveScores i Today) */
 
+/* kada su podaci preuzeti; upozorenje ako osvezavanje ne uspeva */
+.svezina {
+    margin: 10px 0 0;
+    font-size: 12px;
+    opacity: 0.7;
+}
+.svezina-upozorenje {
+    color: var(--error-color);
+    opacity: 1;
+}
+
 .matches-table {
     margin-top: 30px;
     display: flex;

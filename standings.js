@@ -69,6 +69,9 @@ function renderTable(rows, index, groups) {
 if (!competition) {
     title.textContent = 'Tabela';
     showStatus(table, 'error', 'Nepoznato takmičenje. Izaberi ligu ili kup iz menija.');
+} else if (competition.hasTable === false) {
+    // Stari linkovi ka kupovima bez tabele vode na njihove danasnje utakmice.
+    window.location.replace('today.html?lid=' + competition.id);
 } else {
     title.textContent = competition.name;
     document.title = 'NScore – ' + competition.name;
