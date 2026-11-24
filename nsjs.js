@@ -118,7 +118,7 @@ function render(data) {
     var dateLabel = document.getElementById('datum');
     if (dateLabel) {
         var parts = data['date'] ? data['date'].split('-').map(Number) : null;
-        dateLabel.textContent = formatDate(parts ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date());
+        dateLabel.textContent = ', ' + formatDate(parts ? new Date(parts[0], parts[1] - 1, parts[2]) : new Date());
     }
 
     matchTable.replaceChildren();
@@ -205,7 +205,7 @@ document.addEventListener('visibilitychange', function () {
 });
 
 if (onlyCompetition) {
-    document.getElementById('takmicenje').textContent = onlyCompetition.name + ', ';
+    document.getElementById('takmicenje').textContent = onlyCompetition.name;
     document.title = 'NScore – ' + onlyCompetition.name;
     matchTable.dataset.empty = 'Danas nema utakmica u ovom takmičenju.';
     setActiveNav(onlyCompetition.type === 'Cup' ? 'Cups.html' : 'leagues.html');
